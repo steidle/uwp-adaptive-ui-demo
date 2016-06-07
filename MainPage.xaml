@@ -1,0 +1,108 @@
+﻿<Page
+    x:Class="AdaptiveUI.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdaptiveUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="400"
+    d:DesignWidth="320">
+
+    <StackPanel Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ViewStates">
+                <VisualState x:Name="SmallView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource SmallMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CollapsingPanel.Visibility" Value="Collapsed" />
+                        <Setter Target="RightOrBelowPanel.(RelativePanel.Below)" Value="AlwaysVisiblePanel" />
+                        <Setter Target="RightOrBelowPanel.(RelativePanel.RightOf)" Value="" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MediumView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LargeView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="InputStates">
+                <VisualState x:Name="Touch">
+                    <VisualState.StateTriggers>
+                        <local:ContinuumTrigger UIMode="Touch" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MyListView.SelectionMode" Value="None"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Mouse">
+                    <VisualState.StateTriggers>
+                        <local:ContinuumTrigger UIMode="Mouse" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MyListView.SelectionMode" Value="Single"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Margin="16,16,16,8">Collapsing UI</TextBlock>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+           
+            <StackPanel Grid.Column="0" Margin="16">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Always Visible</TextBlock>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh.</TextBlock>
+            </StackPanel>
+
+            <StackPanel Name="CollapsingPanel" Grid.Column="1" Margin="16">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Collapsing</TextBlock>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Margin="16,16,16,8">Moving UI</TextBlock>
+
+        <RelativePanel>
+            <StackPanel Name="AlwaysVisiblePanel" MaxWidth="320" Margin="16">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Always Visible</TextBlock>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh.</TextBlock>
+            </StackPanel>
+            
+            <StackPanel Name="RightOrBelowPanel" RelativePanel.RightOf="AlwaysVisiblePanel" Margin="16">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Right Or Below</TextBlock>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                </TextBlock>
+            </StackPanel>
+        </RelativePanel>
+
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Margin="16,16,16,8">Mouse / Touch Detection</TextBlock>
+
+        <ListView Name="MyListView" Margin="16">
+            <ListViewItem>Element A</ListViewItem>
+            <ListViewItem>Element B</ListViewItem>
+            <ListViewItem>Element C</ListViewItem>
+        </ListView>
+    </StackPanel>
+</Page>
+    
